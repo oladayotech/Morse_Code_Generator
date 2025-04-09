@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Blog Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="flex flex-col min-h-scrren bg-gray-100 font-sans antialised">
+    <!-- Navbar -->
+    <nav class="bg-black p-4 text-white flex justify-between">
+        <div>
+            <h1 class="text-3xl font-bold">Morse Code Generator</h1>
+        </div>
+        <div>
+            <a href="#" class="text-white hover:underline mx-4">Welcome</a>
+            <a href="{% url 'home' %}" class="text-white hover:underline mx-4">English To Morse</a>
+            <!-- <a href="#" class="text-white hover:underline">Logout</a> -->
+        </div>
+    </nav>
+
+
+    <br>
+    <br>
+
+    <!-- Main -->
+    <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105 flex flex-col">
+
+            <!-- Introduction section -->
+            <div class="text-center">
+                <h2 class="text-2xl font-semibold mb-4">Welcome to the Morse Code Generator</h2>
+                <p class="text-gray-700">
+                    Enter Something in Morse code to convert to English!
+                </p>
+            </div>
+
+            <br>
+
+            <!-- Youtube section -->
+            <div>
+                <h2 class="text-xl mb-4 font-semibold">Enter Sentence in Morse Code</h2>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="flex space-x-4" >
+                        <input id="userinputmte" name="userinputmte"  type="text" placeholder="Input Sentence..." class="flex-grow p-2 border border-blue-400 rounded-l-md">
+                        <button id="generateBlogButton" class="bg-black text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition-colors">Generate</button>
+                    </div>
+                </form>
+            </div>
+
+
+            <!-- section for loading circle -->
+            <div style="display: none;" id="loading-circle" class="load"></div>
+
+
+            <!-- Generated Blog Display Section -->
+            <section class="mt-10 flex-grow">
+                <h2 class="text-xl mb-4 font-semibold">Generated Morse Code</h2>
+                <div id="blogContent" class="mt-2 text-gray-700 space-y-4">
+                    {{ context }}
+                    {% for morse_code in contents %}
+                        {{ morse_code }}
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <footer class="text-center p-4 text-blacl mt-6">
+        Powered by <a href="https://www.github/oladayotech">Oladayotech</a>
+    </footer>
+
+</body>
+</html>
