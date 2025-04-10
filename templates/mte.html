@@ -40,11 +40,11 @@
             <!-- Youtube section -->
             <div>
                 <h2 class="text-xl mb-4 font-semibold">Enter Sentence in Morse Code</h2>
-                <form action="" method="post">
+                <form action="{% url 'mte' %}" method="post">
                     {% csrf_token %}
                     <div class="flex space-x-4" >
                         <input id="userinputmte" name="userinputmte"  type="text" placeholder="Input Sentence..." class="flex-grow p-2 border border-blue-400 rounded-l-md">
-                        <button id="generateBlogButton" class="bg-black text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition-colors">Generate</button>
+                        <button type="submit" id="generateBlogButton" class="bg-black text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition-colors">Generate</button>
                     </div>
                 </form>
             </div>
@@ -58,10 +58,10 @@
             <section class="mt-10 flex-grow">
                 <h2 class="text-xl mb-4 font-semibold">Generated Morse Code</h2>
                 <div id="blogContent" class="mt-2 text-gray-700 space-y-4">
-                    {{ context }}
-                    {% for morse_code in contents %}
-                        {{ morse_code }}
-                    {% endfor %}
+                    <p><strong>Original Input (Morse Code):</strong> {{ context }}</p>
+                    <!-- <p>{{ content }}</p> -->
+                    <p><strong>Generated Output (English):</strong></p> 
+                    {{ contents }}
                 </div>
             </section>
         </div>
