@@ -1,1 +1,1 @@
-web: gunicorn morse_code_generator.wsgi
+web: gunicorn morse_code_generator_project.wsgi

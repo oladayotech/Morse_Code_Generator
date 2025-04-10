@@ -58,11 +58,14 @@
             <section class="mt-10 flex-grow">
                 <h2 class="text-xl mb-4 font-semibold">Generated Morse Code</h2>
                 <div id="blogContent" class="mt-2 text-gray-700 space-y-4">
-                    <p><strong>Original Input(English):</strong> {{ contest }}</p>
-                    <p><strong>Generated Output(Morse Code): </strong></p>
-                    {% for morse_code in contents %}
-                        {{ morse_code }}
-                    {% endfor %}
+                    
+                    {% if contents %}
+                        <p><strong>Original Input(English):</strong> {{ contest }}</p>
+                        <p><strong>Generated Output(Morse Code): </strong></p>
+                        {% for morse_code in contents %}
+                            {{ morse_code }}
+                        {% endfor %}
+                    {% endif %}
                         
                 </div>
             </section>
