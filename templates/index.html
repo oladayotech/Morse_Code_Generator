@@ -1,81 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Blog Generator</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Morse Code Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 </head>
-<body class="flex flex-col min-h-scrren bg-gray-100 font-sans antialised">
-    <!-- Navbar -->
-    <nav class="bg-black w-100% p-4 text-white flex justify-between">
-        <div>
-            <h1 class="text-3xl font-bold">Morse Code Generator</h1>
-        </div>
-        <div>
-            <a href="#" class="text-white hover:underline mx-4">Welcome</a>
-            <a href="{% url 'mte' %}" class="text-white hover:underline mx-4">Morse To English</a>
-            <!-- <a href="#" class="text-white hover:underline">Logout</a> -->
-        </div>
-    </nav>
-
-
-    <br>
-    <br>
-
-    <!-- Main -->
-    <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
-        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105 flex flex-col">
-
-            <!-- Introduction section -->
-            <div class="text-center">
-                <h2 class="text-2xl font-semibold mb-4">Welcome to the Morse Code Generator</h2>
-                <p class="text-gray-700">
-                    Enter Something in English to convert to Morse code!
-                </p>
-            </div>
-
-            <br>
-
-            <!-- Youtube section -->
-            <div>
-                <h2 class="text-xl mb-4 font-semibold">Enter Sentence in English</h2>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <div class="flex space-x-4">
-                        <input id="userinput", name="userinput" type="text" placeholder="Input Sentence..." class="flex-grow p-2 border border-blue-400 rounded-l-md">
-                        <button type="submit" id="generateBlogButton" class="bg-black text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition-colors">Generate</button>
-                </form>
-                </div>
-            </div>
-
-
-            <!-- section for loading circle -->
-            <div style="display: none;" id="loading-circle" class="load"></div>
-
-
-            <!-- Generated Blog Display Section -->
-            <section class="mt-10 flex-grow">
-                <h2 class="text-xl mb-4 font-semibold">Generated Morse Code</h2>
-                <div id="blogContent" class="mt-2 text-gray-700 space-y-4">
-                    
-                    {% if contents %}
-                        <p><strong>Original Input(English):</strong> {{ contest }}</p>
-                        <p><strong>Generated Output(Morse Code): </strong></p>
-                        {% for morse_code in contents %}
-                            {{ morse_code }}
-                        {% endfor %}
-                    {% endif %}
-                        
-                </div>
-            </section>
-        </div>
+<body class="flex flex-col w-full min-h-screen bg-gray-100 font-sans antialiased">
+  
+  <!-- Navbar -->
+  <nav class="bg-black p-4 text-white flex flex-col sm:flex-row sm:justify-between items-center">
+    <h1 class="text-2xl font-bold mb-2 sm:mb-0">Morse Code Generator</h1>
+    <div class="space-x-4">
+      <a href="#" class="text-white hover:underline">Welcome</a>
+      <a href="{% url 'mte' %}" class="text-white hover:underline">Morse To English</a>
     </div>
+  </nav>
 
+  <!-- Main -->
+  <main class="flex-grow container mx-auto mt-10 px-4">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+      
+      <!-- Introduction section -->
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-semibold mb-2">Welcome to the Morse Code Generator</h2>
+        <p class="text-gray-700">Turn your words into Morse magic — convert English into dots and dashes!</p>
+      </div>
 
-    <footer class="text-center p-4 text-blacl mt-6">
-        Powered by <a href="https://www.github.com/oladayotech">Oladayotech</a>
-    </footer>
+      <!-- Input form -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Enter Sentence in English</h2>
+        <form action="" method="post" class="flex flex-col sm:flex-row gap-4">
+          {% csrf_token %}
+          <input
+            id="userinput"
+            name="userinput"
+            type="text"
+            placeholder="Input Sentence..."
+            class="flex-grow p-2 border border-blue-400 rounded-md sm:rounded-l-md sm:rounded-r-none"
+          />
+          <button
+            type="submit"
+            id="generateBlogButton"
+            class="bg-black text-white px-4 py-2 rounded-md sm:rounded-l-none sm:rounded-r-md hover:bg-blue-700 transition-colors"
+          >
+            Generate
+          </button>
+        </form>
+      </div>
+
+      <!-- Generated output -->
+      <section class="mt-6">
+        <h2 class="text-xl font-semibold mb-4">Generated Morse Code</h2>
+        <div id="blogContent" class="text-gray-700 space-y-2">
+          {% if contents %}
+            <p><strong>Original Input (English):</strong> {{ contest }}</p>
+            <p><strong>Generated Output (Morse Code):</strong></p>
+            {% for morse_code in contents %}
+              <p>{{ morse_code }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center p-4 text-black mt-6">
+    Powered by <a href="https://www.github.com/oladayotech" class="underline">Oladayotech</a>
+  </footer>
 
 </body>
 </html>
