@@ -16,43 +16,41 @@
       <a href="{% url 'home' %}" class="text-white hover:underline">English to Morse</a>
     </div>
   </nav>
-  </nav>
 
   <!-- Main -->
   <main class="flex-grow container mx-auto mt-10 px-4">
-    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-[1.02] flex flex-col">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
       
       <!-- Intro -->
       <div class="text-center">
-        <h2 class="text-2xl font-semibold mb-4">Welcome to the Morse Code Generator</h2>
+        <h2 class="text-2xl font-semibold mb-2">Welcome to the Morse Code Generator</h2>
         <p class="text-gray-700">Decode the dots and dashes — translate Morse code into plain English!</p>
       </div>
 
       <!-- Input Form -->
       <div class="mt-8">
         <h2 class="text-xl mb-4 font-semibold">Enter Sentence in Morse Code</h2>
-        <form action="{% url 'mte' %}" method="post">
+        <form action="{% url 'mte' %}" method="post" class="flex flex-col sm:flex-row gap-4">
           {% csrf_token %}
-          <div class="flex flex-col sm:flex-row gap-4">
-            <input id="userinputmte" name="userinputmte" type="text" placeholder="Input Sentence..." class="flex-grow p-2 border border-blue-400 rounded-md sm:rounded-l-md sm:rounded-r-none" />
-            <button type="submit" id="generateBlogButton" class="bg-black text-white px-4 py-2 rounded-md sm:rounded-l-none sm:rounded-r-md hover:bg-blue-700 transition-colors">
-              Generate
-            </button>
-          </div>
+          <input id="userinputmte" name="userinputmte" type="text" placeholder="Input Sentence..." class="flex-grow p-2 border border-gray-300 rounded-md sm:rounded-l-md sm:rounded-r-none focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          <button type="submit" class="bg-black text-white px-4 py-2 rounded-md sm:rounded-l-none sm:rounded-r-md hover:bg-gray-800 transition-colors">
+            Generate
+          </button>
         </form>
       </div>
 
       <!-- Result Section -->
+      {% if contents %}
       <section class="mt-10">
-        <h2 class="text-xl mb-4 font-semibold">Generated Morse Code</h2>
-        <div id="blogContent" class="mt-2 text-gray-700 space-y-4">
-          {% if contents %}
-            <p><strong>Original Input (Morse Code):</strong> {{ context }}</p>
-            <p><strong>Generated Output (English):</strong></p>
-            {{ contents }}
-          {% endif %}
+        <h2 class="text-xl mb-4 font-semibold">Generated English Text</h2>
+        <div class="bg-gray-50 p-4 rounded-md border border-gray-200 space-y-2">
+          <p><strong>Original Input (Morse Code):</strong> {{ context }}</p>
+          <p><strong>Generated Output (English):</strong></p>
+          <textarea readonly class="w-full p-2 border border-gray-300 rounded-md bg-white resize-none text-gray-800 font-medium uppercase">{{ contents }}</textarea>
+          <button onclick="copyToClipboard()" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">Copy</button>
         </div>
       </section>
+      {% endif %}
     </div>
   </main>
 
@@ -60,5 +58,14 @@
   <footer class="text-center p-4 text-black mt-6">
     Powered by <a href="https://www.github.com/oladayotech" class="underline hover:text-blue-700">Oladayotech</a>
   </footer>
+
+  <!-- Copy Function -->
+  <script>
+    function copyToClipboard() {
+      const textarea = document.querySelector('textarea');
+      textarea.select();
+      document.execCommand('copy');
+    }
+  </script>
 </body>
 </html>
